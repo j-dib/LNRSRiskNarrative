@@ -8,13 +8,24 @@ for returning company and officer information via a JSON-based API Search.
 * The API is accessible via the `/company` API uri
 * A detailed unit testing class is made available
 
+
+## Issues
+
+The API is fully functional, however, due to time and availability constraints, the database functionality has been disabled.
+
+In order to enable the DB functionality, the errors are to be resolved:
+* H2 Database Storage: This has been stopped as a Bean error is returned. This is returned because the interface implementation has not been coupled with a Bean to fulfill the requirements. The solution is to instantiate a Bean and configure it accordingly.
+* H2 Database Logic: The Insert logic has been implemented, but the read, is yet to be implemented within the impl. Class (this is simply achieved by implementing the interface's read method and reusing it.
+* Amending the Search class to store and read from the h2 database
+
 ## Next Steps
 
 Future implementation would include the below:
 
-* MSSQL Database to replace the h2 demo database used
-* API Auth header to be amended to include user-specific API keys and restriction parameters
-* More parameters such as `active` to be included to filter out inactive companies
+* MSSQL Database to replace the h2 demo database used. This can be achieved by setting up a MYSQL instance on a virtual/cloud server, and configuring the tables (as they cannot be dynamically configured the same way h2 tables are).
+* API Auth header to be amended to include user-specific API keys and restriction parameters (This would be implemented by storing the API keys in a database (properly handling the encryption), and enabling the code to check whether the Key is valid or not by accessing the DB table).
+* More parameters such as `active` to be included to filter out inactive companies (This could be achieved by amending the API's Search class to also check for other parameters such is active, or other custom parameters).
+* Using a more advanced and automated Unit testing tool such as the Postman in an automated enviorment where the resting results are stored within a database and returned to the system administrator.
 
 
 
