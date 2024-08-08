@@ -3,10 +3,13 @@
 This application leverages the benefits of the SpringBoot JAVA framework in order to utilise the TruProxy API
 for returning company and officer information via a JSON-based API Search.
 
+* The Testing class can be found in src/test (LNRSCompanySearchAPITest.java) 
 * Only active officers (`resigned_on` is not present) are returned
 * The API key is passed in via header `x-api-key`
 * The API is accessible via the `/company` API uri
 * A detailed unit testing class is made available
+* The h2 Database instance is stored in memory at this stage (volatile), and can be accessed via /h2-console
+* Database credentials are stored in the application.properties file (src/main/resources)
 
 
 ## Issues
