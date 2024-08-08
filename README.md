@@ -14,7 +14,7 @@ for returning company and officer information via a JSON-based API Search.
 The API is fully functional, however, due to time and availability constraints, the database functionality has been disabled.
 
 In order to enable the DB functionality, the errors are to be resolved:
-* H2 Database Storage: This has been stopped as a Bean error is returned. This is returned because the interface implementation has not been coupled with a Bean to fulfill the requirements. The solution is to instantiate a Bean and configure it accordingly.
+* H2 Database Storage: This has been stopped as a Bean error is returned. This is returned because the interface implementation has not been coupled with a Bean to fulfill the requirements (This error is returned within the OfficerController). The solution is to instantiate a Bean and configure it accordingly.
 * H2 Database Logic: The Insert logic has been implemented, but the read, is yet to be implemented within the impl. Class (this is simply achieved by implementing the interface's read method and reusing it.
 * Amending the Search class to store and read from the h2 database
 
