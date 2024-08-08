@@ -3,8 +3,6 @@ package com.lnrs.risknarrative.company_search.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +28,11 @@ import com.lnrs.risknarrative.company_search.model.Request;
 
 @RestController
 @RequestMapping(value = "/company")
+
 public class Search {
 	@Autowired
 	CompanySearchHelper companySearch;
 
-
-
-	private static final Logger masterLog = LogManager.getLogger(Search.class);
 
 	@GetMapping
 	public ResponseEntity<?> getCompany(@RequestBody Request body, @RequestHeader("x-api-key") String key)  {
@@ -61,6 +57,13 @@ public class Search {
 			response.setTotalResults(1);
 			List<CompanyData> Search = new ArrayList<CompanyData>();
 			comapanies.setOfficers(officers);
+
+			/*// Store to Database
+			for (int i=0;i<officers.size();i++){
+
+			officerService.saveOfficer(officers.get(i));
+		
+		}*/
 			Search.add(comapanies);
 			response.setItems(Search);
 			return new ResponseEntity<>(response, HttpStatus.OK);

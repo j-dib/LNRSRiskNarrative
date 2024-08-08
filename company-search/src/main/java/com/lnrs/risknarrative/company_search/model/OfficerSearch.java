@@ -12,10 +12,11 @@ import lombok.Data;
  * The variables used are limited to the task requirements
  * 
  */
-
 @Data
 @JsonInclude(Include.NON_NULL)
 public class OfficerSearch {
+
+    long id;
 	
 	@JsonProperty("name")
     private String name;

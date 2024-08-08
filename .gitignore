@@ -16,3 +16,4 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 /company-search/src/test/java/com/lnrs/risknarrative/company_search/Oracle_JDK-22
+/company-search/src/main/java/com/lnrs/risknarrative/Oracle_JDK-22

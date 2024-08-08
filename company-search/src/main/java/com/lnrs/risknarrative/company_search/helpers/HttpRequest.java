@@ -45,7 +45,6 @@ import java.security.GeneralSecurityException;
 import java.security.PrivilegedAction;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -317,8 +316,8 @@ public class HttpRequest {
             result.append('?');
         else if (queryStart < lastChar && baseUrl.charAt(lastChar) != '&')
             result.append('&');
-        return result;
-    }
+        if (value instanceof Iterable<?> iterable) {
+            Iterator<?> iterator = iterable.iterator();
 
     private static StringBuilder addParam(final Object key, Object value,
                                           final StringBuilder result) {
@@ -602,9 +601,9 @@ public class HttpRequest {
                 throw new NullPointerException("Cannot serialize a null array.");
 
             if (off < 0)
-                throw new IllegalArgumentException("Cannot have negative offset: "
-                        + off);
-
+                        
+                                "Cannot have offset of %d and length of %d with array of length %d"
+                                .formatted(
             if (len < 0)
                 throw new IllegalArgumentException("Cannot have length offset: " + len);
 
@@ -730,8 +729,8 @@ public class HttpRequest {
          * @param closeable
          * @param ignoreCloseExceptions
          */
-        protected CloseOperation(final Closeable closeable,
-                                 final boolean ignoreCloseExceptions) {
+            if (closeable instanceof Flushable flushable)
+                flushable.flush();
             this.closeable = closeable;
             this.ignoreCloseExceptions = ignoreCloseExceptions;
         }
@@ -811,27 +810,27 @@ public class HttpRequest {
 
             return this;
         }
-    }
-
+        if (array instanceof Object[] objects)
+            return Arrays.asList(objects);
     /**
      * Represents array of any type as list of objects so we can easily iterate over it
      * @param array of elements
-     * @return list with the same elements
-     */
-    private static List<Object> arrayToList(final Object array) {
-        if (array instanceof Object[])
-            return Arrays.asList((Object[]) array);
-
-        List<Object> result = new ArrayList<Object>();
-        // Arrays of the primitive types can't be cast to array of Object, so this:
-        if (array instanceof int[])
-            for (int value : (int[]) array) result.add(value);
-        else if (array instanceof boolean[])
-            for (boolean value : (boolean[]) array) result.add(value);
-        else if (array instanceof long[])
-            for (long value : (long[]) array) result.add(value);
-        else if (array instanceof float[])
-            for (float value : (float[]) array) result.add(value);
+        if (array instanceof int[] ints)
+            for (int value : ints) result.add(value);
+        else if (array instanceof boolean[] booleans)
+            for (boolean value : booleans) result.add(value);
+        else if (array instanceof long[] longs)
+            for (long value : longs) result.add(value);
+        else if (array instanceof float[] floats)
+            for (float value : floats) result.add(value);
+        else if (array instanceof double[] doubles)
+            for (double value : doubles) result.add(value);
+        else if (array instanceof short[] shorts)
+            for (short value : shorts) result.add(value);
+        else if (array instanceof byte[] bytes)
+            for (byte value : bytes) result.add(value);
+        else if (array instanceof char[] chars)
+            for (char value : chars) result.add(value);
         else if (array instanceof double[])
             for (double value : (double[]) array) result.add(value);
         else if (array instanceof short[])
@@ -3165,8 +3164,8 @@ public class HttpRequest {
 
     /**
      * Configure HTTPS connection to trust all certificates
-     * <p>
-     * This method does nothing if the current request is not a HTTPS request
+        if (connection instanceof HttpsURLConnection lConnection)
+            lConnection
      *
      * @return this request
      * @throws HttpRequestException
@@ -3182,8 +3181,8 @@ public class HttpRequest {
     /**
      * Configure HTTPS connection to trust all hosts using a custom
      * {@link HostnameVerifier} that always returns <code>true</code> for each
-     * host verified
-     * <p>
+        if (connection instanceof HttpsURLConnection lConnection)
+            lConnection
      * This method does nothing if the current request is not a HTTPS request
      *
      * @return this request
